@@ -65,7 +65,7 @@ namespace Microsoft.Recognizers.Text.Number.Arabic
             // Workaround to solve "و" which means "and" before rounded number in Arabic.
             // ألف و مائة = one thousand and one hundred
             // But in Arabic there is no integer before hundred, because it's 100 by default.
-            if (matchStrs.Count == 1 && matchStrs.First() == "و")
+            if (matchStrs.Count == 1 && matchStrs.First() is "و")
             {
                 result = (true, 1);
             }

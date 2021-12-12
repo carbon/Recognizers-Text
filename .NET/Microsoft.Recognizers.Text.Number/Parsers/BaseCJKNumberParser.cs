@@ -38,7 +38,7 @@ namespace Microsoft.Recognizers.Text.Number
                 Metadata = extResult.Metadata,
             };
 
-            if (Config.CultureInfo.Name == "zh-CN")
+            if (Config.CultureInfo.Name is "zh-CN")
             {
                 getExtResult.Text = ReplaceTraWithSim(getExtResult.Text);
             }
@@ -112,7 +112,7 @@ namespace Microsoft.Recognizers.Text.Number
             }
 
             // TODO: @Refactor this check to determine the subtype for JA and KO
-            if ((Config.CultureInfo.Name == "ja-JP" || Config.CultureInfo.Name == "ko-KR") && ret != null)
+            if ((Config.CultureInfo.Name is "ja-JP" or "ko-KR") && ret != null)
             {
                 ret.Type = DetermineType(extResult);
                 ret.Text = ret.Text.ToLowerInvariant();

@@ -304,8 +304,7 @@ namespace Microsoft.Recognizers.Text.DateTime
 
             foreach (var extractResult in extractResults)
             {
-                if (extractResult.Type.Equals(Constants.SYS_DATETIME_TIME, StringComparison.Ordinal) ||
-                    extractResult.Type.Equals(Constants.SYS_DATETIME_DATETIME, StringComparison.Ordinal))
+                if (extractResult.Type is Constants.SYS_DATETIME_TIME or Constants.SYS_DATETIME_DATETIME)
                 {
                     var stringAfter = text.Substring((int)extractResult.Start + (int)extractResult.Length);
                     var match = this.config.NumberEndingPattern.Match(stringAfter);
@@ -351,9 +350,7 @@ namespace Microsoft.Recognizers.Text.DateTime
                     success = TryMergeModifierToken(er, config.EqualRegex, text);
                 }
 
-                if (er.Type.Equals(Constants.SYS_DATETIME_DATEPERIOD, StringComparison.Ordinal) ||
-                    er.Type.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal) ||
-                    er.Type.Equals(Constants.SYS_DATETIME_TIME, StringComparison.Ordinal))
+                if (er.Type is Constants.SYS_DATETIME_DATEPERIOD or Constants.SYS_DATETIME_DATE or Constants.SYS_DATETIME_TIME)
                 {
                     // 2012 or after/above, 3 pm or later
                     var afterStr = text.Substring((er.Start ?? 0) + (er.Length ?? 0));
@@ -363,7 +360,7 @@ namespace Microsoft.Recognizers.Text.DateTime
 
                         var match = config.SuffixAfterRegex.MatchBegin(afterStr.TrimStart(), trim: true);
 
-                        if (match.Success && match.Value != ".")
+                        if (match.Success && match.Value is not ".")
                         {
                             var isFollowedByOtherEntity = true;
 

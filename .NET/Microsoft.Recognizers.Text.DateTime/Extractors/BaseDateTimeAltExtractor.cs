@@ -166,8 +166,8 @@ namespace Microsoft.Recognizers.Text.DateTime
 
         private static Action<ExtractResult, ExtractResult> GetPostProcessMethod(string firstEntityType, string lastEntityType)
         {
-            if (firstEntityType.Equals(Constants.SYS_DATETIME_DATETIMEPERIOD, StringComparison.Ordinal) &&
-                lastEntityType.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal))
+            if (firstEntityType is Constants.SYS_DATETIME_DATETIMEPERIOD &&
+                lastEntityType is Constants.SYS_DATETIME_DATE)
             {
                 return (contextEr, originalEr) =>
                 {
@@ -176,8 +176,8 @@ namespace Microsoft.Recognizers.Text.DateTime
                     contextEr.Type = Constants.ContextType_RelativeSuffix;
                 };
             }
-            else if (firstEntityType.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal) &&
-                     lastEntityType.Equals(Constants.SYS_DATETIME_DATEPERIOD, StringComparison.Ordinal))
+            else if (firstEntityType is Constants.SYS_DATETIME_DATE &&
+                     lastEntityType is Constants.SYS_DATETIME_DATEPERIOD)
             {
                 return (contextEr, originalEr) =>
                 {
@@ -197,20 +197,20 @@ namespace Microsoft.Recognizers.Text.DateTime
                 var firstEntityType = extractResults.First().Type;
                 var lastEntityType = extractResults.Last().Type;
 
-                if (firstEntityType.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal) &&
-                    lastEntityType.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal))
+                if (firstEntityType is Constants.SYS_DATETIME_DATE &&
+                    lastEntityType is Constants.SYS_DATETIME_DATE)
                 {
                     // "11/20 or 11/22"
                     shouldApply = true;
                 }
-                else if (firstEntityType.Equals(Constants.SYS_DATETIME_TIME, StringComparison.Ordinal) &&
-                         lastEntityType.Equals(Constants.SYS_DATETIME_TIME, StringComparison.Ordinal))
+                else if (firstEntityType is Constants.SYS_DATETIME_TIME &&
+                         lastEntityType is Constants.SYS_DATETIME_TIME)
                 {
                     // "7 oclock or 8 oclock"
                     shouldApply = true;
                 }
-                else if (firstEntityType.Equals(Constants.SYS_DATETIME_DATETIME, StringComparison.Ordinal) &&
-                         lastEntityType.Equals(Constants.SYS_DATETIME_DATETIME, StringComparison.Ordinal))
+                else if (firstEntityType is Constants.SYS_DATETIME_DATETIME &&
+                         lastEntityType is Constants.SYS_DATETIME_DATETIME)
                 {
                     // "Monday 1pm or Tuesday 2pm"
                     shouldApply = true;
@@ -360,7 +360,7 @@ namespace Microsoft.Recognizers.Text.DateTime
                     // For cases like "I am looking at 18 and 19 June"
                     // in which "18" is wrongly recognized as time without context.
                     var nextEr = originalErs[i + 1];
-                    if (nextEr.Type.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal) &&
+                    if (nextEr.Type is Constants.SYS_DATETIME_DATE &&
                         originalErs[i].Text.Equals(dateEr.Text, StringComparison.Ordinal) &&
                         IsConnectorOrWhiteSpace((int)(dateEr.Start + dateEr.Length), (int)nextEr.Start, text))
                     {
@@ -391,7 +391,7 @@ namespace Microsoft.Recognizers.Text.DateTime
             var relativeDatePeriodErs = new List<ExtractResult>();
             foreach (var result in ers)
             {
-                if (!result.Type.Equals(ExtractorName, StringComparison.Ordinal))
+                if (result.Type is not ExtractorName)
                 {
                     var resultEnd = result.Start + result.Length;
                     foreach (var relativeTermsMatch in relativeTermsMatches)
@@ -619,50 +619,50 @@ namespace Microsoft.Recognizers.Text.DateTime
         {
             var methods = new List<Func<string, List<ExtractResult>>>();
 
-            if (firstEntityType.Equals(Constants.SYS_DATETIME_DATETIME, StringComparison.Ordinal) &&
-                lastEntityType.Equals(Constants.SYS_DATETIME_TIME, StringComparison.Ordinal))
+            if (firstEntityType is Constants.SYS_DATETIME_DATETIME &&
+                lastEntityType is Constants.SYS_DATETIME_TIME)
             {
                 // "Monday 7pm or 8pm"
                 methods.Add(config.DateExtractor.Extract);
             }
-            else if (firstEntityType.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal) &&
-                     lastEntityType.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal))
+            else if (firstEntityType is Constants.SYS_DATETIME_DATE &&
+                     lastEntityType is Constants.SYS_DATETIME_DATE)
             {
                 // "next week Monday or Tuesday", "previous Monday or Wednesday"
                 methods.Add(config.DatePeriodExtractor.Extract);
                 methods.Add(ExtractRelativePrefixContext);
             }
-            else if (firstEntityType.Equals(Constants.SYS_DATETIME_TIME, StringComparison.Ordinal) &&
-                     lastEntityType.Equals(Constants.SYS_DATETIME_TIME, StringComparison.Ordinal))
+            else if (firstEntityType is Constants.SYS_DATETIME_TIME &&
+                     lastEntityType is Constants.SYS_DATETIME_TIME)
             {
                 // "in the morning at 7 oclock or 8 oclock"
                 methods.Add(ExtractAmPmContext);
             }
-            else if (firstEntityType.Equals(Constants.SYS_DATETIME_DATETIME, StringComparison.Ordinal) &&
-                     lastEntityType.Equals(Constants.SYS_DATETIME_DATETIME, StringComparison.Ordinal))
+            else if (firstEntityType is Constants.SYS_DATETIME_DATETIME &&
+                     lastEntityType is Constants.SYS_DATETIME_DATETIME)
             {
                 // "next week Mon 9am or Tue 1pm"
                 methods.Add(config.DatePeriodExtractor.Extract);
             }
-            else if (firstEntityType.Equals(Constants.SYS_DATETIME_DATETIMEPERIOD, StringComparison.Ordinal) &&
-                     lastEntityType.Equals(Constants.SYS_DATETIME_TIMEPERIOD, StringComparison.Ordinal))
+            else if (firstEntityType is Constants.SYS_DATETIME_DATETIMEPERIOD &&
+                     lastEntityType is Constants.SYS_DATETIME_TIMEPERIOD)
             {
                 // "Monday 7-8 am or 9-10am"
                 methods.Add(config.DateExtractor.Extract);
             }
-            else if (firstEntityType.Equals(Constants.SYS_DATETIME_DATEPERIOD, StringComparison.Ordinal) &&
-                     lastEntityType.Equals(Constants.SYS_DATETIME_DATEPERIOD, StringComparison.Ordinal))
+            else if (firstEntityType is Constants.SYS_DATETIME_DATEPERIOD &&
+                     lastEntityType is Constants.SYS_DATETIME_DATEPERIOD)
             {
                 // For alt entities that are all DatePeriod, no need to share context
             }
-            else if (firstEntityType.Equals(Constants.SYS_DATETIME_DATETIMEPERIOD, StringComparison.Ordinal) &&
-                     lastEntityType.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal))
+            else if (firstEntityType is Constants.SYS_DATETIME_DATETIMEPERIOD &&
+                     lastEntityType is Constants.SYS_DATETIME_DATE)
             {
                 // "Tuesday or Wednesday morning"
                 methods.Add(config.DateExtractor.Extract);
             }
-            else if (firstEntityType.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal) &&
-                     lastEntityType.Equals(Constants.SYS_DATETIME_DATEPERIOD, StringComparison.Ordinal))
+            else if (firstEntityType is Constants.SYS_DATETIME_DATE &&
+                     lastEntityType is Constants.SYS_DATETIME_DATEPERIOD)
             {
                 // "Monday this week or next week"
                 methods.Add(config.DatePeriodExtractor.Extract);

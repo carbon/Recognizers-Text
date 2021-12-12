@@ -129,7 +129,7 @@ namespace Microsoft.Recognizers.Text.DateTime
                     var valid = false;
 
                     // for cases like "tomorrow 3",  "tomorrow at 3"
-                    if (ers[j].Type.Equals(Number.Constants.SYS_NUM_INTEGER, StringComparison.Ordinal))
+                    if (ers[j].Type is Number.Constants.SYS_NUM_INTEGER)
                     {
                         var match = this.config.DateNumberConnectorRegex.Match(middleStr);
                         if (string.IsNullOrEmpty(middleStr) || match.Success)

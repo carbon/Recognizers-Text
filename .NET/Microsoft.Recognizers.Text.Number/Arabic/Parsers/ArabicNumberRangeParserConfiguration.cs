@@ -10,7 +10,7 @@ namespace Microsoft.Recognizers.Text.Number.Arabic
 
         public ArabicNumberRangeParserConfiguration(INumberOptionsConfiguration config)
         {
-            if (config.Culture == "ar-*")
+            if (config.Culture is "ar-*")
             {
                 CultureInfo = new CultureInfo("ar");
             }

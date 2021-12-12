@@ -302,7 +302,7 @@ namespace Microsoft.Recognizers.Text.DateTime
             foreach (var result in er)
             {
                 // Check that the extracted number is not part of a decimal number (e.g. 123.24)
-                if (result.Start > 1 && (text[(int)result.Start - 1].Equals(',') || text[(int)result.Start - 1].Equals('.')) &&
+                if (result.Start > 1 && (text[(int)result.Start - 1] is ',' or '.') &&
                     char.IsDigit(text[(int)result.Start - 2]))
                 {
                     continue;
@@ -463,7 +463,7 @@ namespace Microsoft.Recognizers.Text.DateTime
                     beginMatch = this.Config.WeekDayRegex.MatchBegin(suffixStr.Trim(), trim: true);
 
                     if (beginMatch.Success && num >= 1 && num <= 5
-                        && result.Type.Equals(Number.Constants.SYS_NUM_ORDINAL, StringComparison.Ordinal))
+                        && result.Type is Number.Constants.SYS_NUM_ORDINAL)
                     {
                         var weekDayStr = beginMatch.Groups["weekday"].Value;
                         if (this.Config.DayOfWeek.ContainsKey(weekDayStr))

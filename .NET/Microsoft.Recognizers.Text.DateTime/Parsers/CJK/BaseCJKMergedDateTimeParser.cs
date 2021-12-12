@@ -129,7 +129,7 @@ namespace Microsoft.Recognizers.Text.DateTime
                                                          string mod, Dictionary<string, string> res)
         {
             if (resolutionDic.ContainsKey(type) &&
-                !resolutionDic[type].Equals(Constants.InvalidDateString, StringComparison.Ordinal))
+                resolutionDic[type] is not Constants.InvalidDateString)
             {
                 if (!string.IsNullOrEmpty(mod))
                 {
@@ -572,34 +572,34 @@ namespace Microsoft.Recognizers.Text.DateTime
         {
             var res = new Dictionary<string, string>();
 
-            if (type.Equals(Constants.SYS_DATETIME_DATETIME, StringComparison.Ordinal))
+            if (type is Constants.SYS_DATETIME_DATETIME)
             {
                 AddSingleDateTimeToResolution(resolutionDic, TimeTypeConstants.DATETIME, mod, res);
             }
-            else if (type.Equals(Constants.SYS_DATETIME_TIME, StringComparison.Ordinal))
+            else if (type is Constants.SYS_DATETIME_TIME)
             {
                 AddSingleDateTimeToResolution(resolutionDic, TimeTypeConstants.TIME, mod, res);
             }
-            else if (type.Equals(Constants.SYS_DATETIME_DATE, StringComparison.Ordinal))
+            else if (type is Constants.SYS_DATETIME_DATE)
             {
                 AddSingleDateTimeToResolution(resolutionDic, TimeTypeConstants.DATE, mod, res);
             }
-            else if (type.Equals(Constants.SYS_DATETIME_DURATION, StringComparison.Ordinal))
+            else if (type is Constants.SYS_DATETIME_DURATION)
             {
                 if (resolutionDic.ContainsKey(TimeTypeConstants.DURATION))
                 {
                     res.Add(ResolutionKey.Value, resolutionDic[TimeTypeConstants.DURATION]);
                 }
             }
-            else if (type.Equals(Constants.SYS_DATETIME_TIMEPERIOD, StringComparison.Ordinal))
+            else if (type is Constants.SYS_DATETIME_TIMEPERIOD)
             {
                 AddPeriodToResolution(resolutionDic, TimeTypeConstants.START_TIME, TimeTypeConstants.END_TIME, mod, res);
             }
-            else if (type.Equals(Constants.SYS_DATETIME_DATEPERIOD, StringComparison.Ordinal))
+            else if (type is Constants.SYS_DATETIME_DATEPERIOD)
             {
                 AddPeriodToResolution(resolutionDic, TimeTypeConstants.START_DATE, TimeTypeConstants.END_DATE, mod, res);
             }
-            else if (type.Equals(Constants.SYS_DATETIME_DATETIMEPERIOD, StringComparison.Ordinal))
+            else if (type is Constants.SYS_DATETIME_DATETIMEPERIOD)
             {
                 AddPeriodToResolution(resolutionDic, TimeTypeConstants.START_DATETIME, TimeTypeConstants.END_DATETIME, mod, res);
             }
