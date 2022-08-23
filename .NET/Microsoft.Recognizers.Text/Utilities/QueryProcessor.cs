@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,7 +8,6 @@ namespace Microsoft.Recognizers.Text.Utilities
 {
     public static class QueryProcessor
     {
-
         // Must be in sync with Base-Numbers YAML due to inter-dependency issue with different .NET targets
         private const string CaseSensitiveTerms = @"(?<=(\s|\d))(kB|K[Bb]?|M[BbM]?|G[Bb]?|B)\b";
 
@@ -17,31 +17,46 @@ namespace Microsoft.Recognizers.Text.Utilities
         {
             if (recode)
             {
-                query = query.Replace("０", "0");
-                query = query.Replace("１", "1");
-                query = query.Replace("２", "2");
-                query = query.Replace("３", "3");
-                query = query.Replace("４", "4");
-                query = query.Replace("５", "5");
-                query = query.Replace("６", "6");
-                query = query.Replace("７", "7");
-                query = query.Replace("８", "8");
-                query = query.Replace("９", "9");
-                query = query.Replace("：", ":");
-                query = query.Replace("－", "-");
-                query = query.Replace("−", "-");
-                query = query.Replace("，", ",");
-                query = query.Replace("／", "/");
-                query = query.Replace("Ｇ", "G");
-                query = query.Replace("Ｍ", "M");
-                query = query.Replace("Ｔ", "T");
-                query = query.Replace("Ｋ", "K");
-                query = query.Replace("ｋ", "k");
-                query = query.Replace("．", ".");
-                query = query.Replace("（", "(");
-                query = query.Replace("）", ")");
-                query = query.Replace("％", "%");
-                query = query.Replace("、", ",");
+                Span<char> newQuery = query.Length <= 128
+                    ? stackalloc char[128].Slice(0, query.Length)
+                    : new char[query.Length];
+
+                int position = 0;
+
+                foreach (var c in query)
+                {
+                    newQuery[position++] = c switch
+                    {
+                        '０' => '0',
+                        '１' => '1',
+                        '２' => '2',
+                        '３' => '3',
+                        '４' => '4',
+                        '５' => '5',
+                        '６' => '6',
+                        '７' => '7',
+                        '８' => '8',
+                        '９' => '9',
+                        '：' => ':',
+                        '－' => '-',
+                        '−' => '-',
+                        '，' => ',',
+                        '／' => '/',
+                        'Ｇ' => 'G',
+                        'Ｍ' => 'M',
+                        'Ｔ' => 'T',
+                        'Ｋ' => 'K',
+                        'ｋ' => 'k',
+                        '．' => '.',
+                        '（' => '(',
+                        '）' => ')',
+                        '％' => '%',
+                        '、' => ',',
+                        _ => c
+                    };
+                }
+
+                query = newQuery.ToString();
             }
 
             query = caseSensitive ?
