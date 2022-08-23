@@ -89,19 +89,19 @@ namespace Microsoft.Recognizers.Text.DateTime.Portuguese
             {
                 timex = "P1D";
             }
-            else if (trimmedText.Equals("semanalmente", StringComparison.Ordinal))
+            else if (trimmedText is "semanalmente")
             {
                 timex = "P1W";
             }
-            else if (trimmedText.Equals("quinzenalmente", StringComparison.Ordinal))
+            else if (trimmedText is "quinzenalmente")
             {
                 timex = "P2W";
             }
-            else if (trimmedText.Equals("mensalmente", StringComparison.Ordinal))
+            else if (trimmedText is "mensalmente")
             {
                 timex = "P1M";
             }
-            else if (trimmedText.Equals("anualmente", StringComparison.Ordinal))
+            else if (trimmedText is "anualmente")
             {
                 timex = "P1Y";
             }
@@ -119,19 +119,19 @@ namespace Microsoft.Recognizers.Text.DateTime.Portuguese
             var trimmedText = text.Trim().Normalized(DateTimeDefinitions.SpecialCharactersEquivalent);
 
             // @TODO move hardcoded values to resources file
-            if (trimmedText.Equals("dia", StringComparison.Ordinal) || trimmedText.Equals("dias", StringComparison.Ordinal))
+            if (trimmedText is "dia" or "dias")
             {
                 timex = "P1D";
             }
-            else if (trimmedText.Equals("semana", StringComparison.Ordinal) || trimmedText.Equals("semanas", StringComparison.Ordinal))
+            else if (trimmedText is "semana" or "semanas")
             {
                 timex = "P1W";
             }
-            else if (trimmedText.Equals("mes", StringComparison.Ordinal) || trimmedText.Equals("meses", StringComparison.Ordinal))
+            else if (trimmedText is "mes" or "meses")
             {
                 timex = "P1M";
             }
-            else if (trimmedText.Equals("ano", StringComparison.Ordinal) || trimmedText.Equals("anos", StringComparison.Ordinal))
+            else if (trimmedText is "ano" or "anos")
             {
                 timex = "P1Y";
             }

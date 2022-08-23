@@ -83,10 +83,10 @@ namespace Microsoft.Recognizers.Text.DateTime.French
 
             // @TODO move hardcoded values to resources file
 
-            if (trimmedText.Equals("quotidien", StringComparison.Ordinal) ||
-                trimmedText.Equals("quotidienne", StringComparison.Ordinal) ||
-                trimmedText.Equals("jours", StringComparison.Ordinal) ||
-                trimmedText.Equals("journellement", StringComparison.Ordinal))
+            if (trimmedText is "quotidien" ||
+                trimmedText is "quotidienne" ||
+                trimmedText is "jours" ||
+                trimmedText is "journellement")
             {
                 // daily
                 timex = "P1D";

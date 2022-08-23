@@ -116,9 +116,9 @@ namespace Microsoft.Recognizers.Text.DateTime.Korean
             var value = 0;
 
             // @TODO move hardcoded values to resources file
-            if (text.Equals("今天", StringComparison.Ordinal) ||
-                text.Equals("今日", StringComparison.Ordinal) ||
-                text.Equals("最近", StringComparison.Ordinal))
+            if (text is "今天" ||
+                text is "今日" ||
+                text is "最近")
             {
                 value = 0;
             }
@@ -130,12 +130,12 @@ namespace Microsoft.Recognizers.Text.DateTime.Korean
             {
                 value = -1;
             }
-            else if (text.Equals("大后天", StringComparison.Ordinal) ||
-                     text.Equals("大後天", StringComparison.Ordinal))
+            else if (text is "大后天" ||
+                     text is "大後天")
             {
                 value = 3;
             }
-            else if (text.Equals("大前天", StringComparison.Ordinal))
+            else if (text is "大前天")
             {
                 value = -3;
             }

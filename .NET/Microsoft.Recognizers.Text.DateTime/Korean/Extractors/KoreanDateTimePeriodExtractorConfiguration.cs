@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Recognizers.Definitions.Korean;
 using Microsoft.Recognizers.Text.Number;
 using Microsoft.Recognizers.Text.Number.Korean;
-using Microsoft.Recognizers.Text.Utilities;
-using DateObject = System.DateTime;
 
 namespace Microsoft.Recognizers.Text.DateTime.Korean
 {
@@ -119,9 +115,7 @@ namespace Microsoft.Recognizers.Text.DateTime.Korean
         public bool HasConnectorToken(string text)
         {
             // @TODO move hardcoded values to resources file
-            return text.Equals("和", StringComparison.Ordinal) ||
-                    text.Equals("与", StringComparison.Ordinal) ||
-                    text.Equals("到", StringComparison.Ordinal);
+            return text is "和" or "与" or "到";
         }
     }
 }

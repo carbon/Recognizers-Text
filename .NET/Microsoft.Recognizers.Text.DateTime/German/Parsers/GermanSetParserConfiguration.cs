@@ -83,56 +83,56 @@ namespace Microsoft.Recognizers.Text.DateTime.German
 
             // @TODO move hardcoded values to resources file
 
-            if (trimmedText.Equals("täglich", StringComparison.Ordinal) ||
-                trimmedText.Equals("täglicher", StringComparison.Ordinal) ||
-                trimmedText.Equals("tägliches", StringComparison.Ordinal) ||
-                trimmedText.Equals("tägliche", StringComparison.Ordinal) ||
-                trimmedText.Equals("täglichen", StringComparison.Ordinal) ||
-                trimmedText.Equals("alltäglich", StringComparison.Ordinal) ||
-                trimmedText.Equals("alltäglicher", StringComparison.Ordinal) ||
-                trimmedText.Equals("alltägliches", StringComparison.Ordinal) ||
-                trimmedText.Equals("alltägliche", StringComparison.Ordinal) ||
-                trimmedText.Equals("alltäglichen", StringComparison.Ordinal) ||
-                trimmedText.Equals("jeden tag", StringComparison.Ordinal))
+            if (trimmedText is "täglich" ||
+                trimmedText is "täglicher" ||
+                trimmedText is "tägliches" ||
+                trimmedText is "tägliche" ||
+                trimmedText is "täglichen" ||
+                trimmedText is "alltäglich" ||
+                trimmedText is "alltäglicher" ||
+                trimmedText is "alltägliches" ||
+                trimmedText is "alltägliche" ||
+                trimmedText is "alltäglichen" ||
+                trimmedText is "jeden tag")
             {
                 timex = "P1D";
             }
-            else if (trimmedText.Equals("wöchentlich", StringComparison.Ordinal) ||
-                     trimmedText.Equals("wöchentlicher", StringComparison.Ordinal) ||
-                     trimmedText.Equals("wöchentliches", StringComparison.Ordinal) ||
-                     trimmedText.Equals("wöchentliche", StringComparison.Ordinal) ||
-                     trimmedText.Equals("wöchentlichen", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allwöchentlich", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allwöchentlicher", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allwöchentliches", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allwöchentliche", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allwöchentlichen", StringComparison.Ordinal))
+            else if (trimmedText is "wöchentlich" ||
+                     trimmedText is "wöchentlicher" ||
+                     trimmedText is "wöchentliches" ||
+                     trimmedText is "wöchentliche" ||
+                     trimmedText is "wöchentlichen" ||
+                     trimmedText is "allwöchentlich" ||
+                     trimmedText is "allwöchentlicher" ||
+                     trimmedText is "allwöchentliches" ||
+                     trimmedText is "allwöchentliche" ||
+                     trimmedText is "allwöchentlichen")
             {
                 timex = "P1W";
             }
-            else if (trimmedText.Equals("monatlich", StringComparison.Ordinal) ||
-                     trimmedText.Equals("monatlicher", StringComparison.Ordinal) ||
-                     trimmedText.Equals("monatliches", StringComparison.Ordinal) ||
-                     trimmedText.Equals("monatliche", StringComparison.Ordinal) ||
-                     trimmedText.Equals("monatlichen", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allmonatlich", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allmonatlicher", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allmonatliches", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allmonatliche", StringComparison.Ordinal) ||
-                     trimmedText.Equals("allmonatlichen", StringComparison.Ordinal))
+            else if (trimmedText is "monatlich" ||
+                     trimmedText is "monatlicher" ||
+                     trimmedText is "monatliches" ||
+                     trimmedText is "monatliche" ||
+                     trimmedText is "monatlichen" ||
+                     trimmedText is "allmonatlich" ||
+                     trimmedText is "allmonatlicher" ||
+                     trimmedText is "allmonatliches" ||
+                     trimmedText is "allmonatliche" ||
+                     trimmedText is "allmonatlichen")
             {
                 timex = "P1M";
             }
-            else if (trimmedText.Equals("jährlich", StringComparison.Ordinal) ||
-                     trimmedText.Equals("jährlicher", StringComparison.Ordinal) ||
-                     trimmedText.Equals("jährliches", StringComparison.Ordinal) ||
-                     trimmedText.Equals("jährliche", StringComparison.Ordinal) ||
-                     trimmedText.Equals("jährlichen", StringComparison.Ordinal) ||
-                     trimmedText.Equals("alljährlich", StringComparison.Ordinal) ||
-                     trimmedText.Equals("alljährlicher", StringComparison.Ordinal) ||
-                     trimmedText.Equals("alljährliches", StringComparison.Ordinal) ||
-                     trimmedText.Equals("alljährliche", StringComparison.Ordinal) ||
-                     trimmedText.Equals("alljährlichen", StringComparison.Ordinal))
+            else if (trimmedText is "jährlich" ||
+                     trimmedText is "jährlicher" ||
+                     trimmedText is "jährliches" ||
+                     trimmedText is "jährliche" ||
+                     trimmedText is "jährlichen" ||
+                     trimmedText is "alljährlich" ||
+                     trimmedText is "alljährlicher" ||
+                     trimmedText is "alljährliches" ||
+                     trimmedText is "alljährliche" ||
+                     trimmedText is "alljährlichen")
             {
                 timex = "P1Y";
             }

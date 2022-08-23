@@ -119,9 +119,7 @@ namespace Microsoft.Recognizers.Text.DateTime.Japanese
         public bool HasConnectorToken(string text)
         {
             // @TODO move hardcoded values to resources file
-            return text.Equals("和", StringComparison.Ordinal) ||
-                    text.Equals("与", StringComparison.Ordinal) ||
-                    text.Equals("到", StringComparison.Ordinal);
+            return text is "和" or "与" or "到";
         }
     }
 }

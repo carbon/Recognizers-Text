@@ -464,7 +464,7 @@ namespace Microsoft.Recognizers.Text.Number
                         }
                         else if (Config.CardinalNumberMap.ContainsKey(matchStr))
                         {
-                            if (oldSym.Equals("-", StringComparison.Ordinal))
+                            if (oldSym is "-")
                             {
                                 var sum = tempStack.Pop() + matchValue;
                                 tempStack.Push(sum);

@@ -8,7 +8,6 @@ namespace Microsoft.Recognizers.Text.DateTime.German
 {
     public class GermanDateTimeParserConfiguration : BaseDateTimeOptionsConfiguration, IDateTimeParserConfiguration
     {
-
         private const RegexOptions RegexFlags = RegexOptions.Singleline | RegexOptions.ExplicitCapture;
 
         public GermanDateTimeParserConfiguration(ICommonDateTimeParserConfiguration config)
@@ -126,13 +125,13 @@ namespace Microsoft.Recognizers.Text.DateTime.German
             // @TODO Move all hardcoded strings to resource file
 
             if (trimmedText.EndsWith("jetzt", StringComparison.Ordinal) ||
-                trimmedText.Equals("momentan", StringComparison.Ordinal) ||
-                trimmedText.Equals("gerade", StringComparison.Ordinal) ||
-                trimmedText.Equals("aktuell", StringComparison.Ordinal) ||
-                trimmedText.Equals("aktuelle", StringComparison.Ordinal) ||
-                trimmedText.Equals("im moment", StringComparison.Ordinal) ||
-                trimmedText.Equals("in diesem moment", StringComparison.Ordinal) ||
-                trimmedText.Equals("derzeit", StringComparison.Ordinal))
+                trimmedText is "momentan" ||
+                trimmedText is "gerade" ||
+                trimmedText is "aktuell" ||
+                trimmedText is "aktuelle" ||
+                trimmedText is "im moment" ||
+                trimmedText is "in diesem moment" ||
+                trimmedText is "derzeit")
             {
                 timex = "PRESENT_REF";
             }
